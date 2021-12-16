@@ -26,10 +26,12 @@ exports.deleteMovie = async (movieObj) => {
 
 exports.listMovie = async () => {
     try{
+        const list = []
         const listmovie = await Movie.find()
         listmovie.forEach((element) => {
-            console.table([{ title: element.title, actor: element.actor, rating: element.rating }])
+            list.push({ Title: element.title, Actor: element.actor, Rating: element.rating })
         })
+        console.table(list)
         mongoose.disconnect()
     } catch (error) {
         console.log (error)
