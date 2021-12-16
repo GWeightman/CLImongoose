@@ -28,8 +28,27 @@ exports.listMovie = async () => {
     try{
         const listmovie = await Movie.find()
         listmovie.forEach((element) => {
-            console.log(`${element.title} ${element.actor} ${element.rating}`)
+            console.table([{ title: element.title, actor: element.actor, rating: element.rating }])
         })
+        mongoose.disconnect()
+    } catch (error) {
+        console.log (error)
+        mongoose.disconnect()
+    }
+}
+
+exports.editMovie = async (movieObj, newObj) => {
+    try{
+        await Movie.updateOne(movieObj, newObj)
+        if (movieObj.actor){
+            console.log(`Successfully changed ${movieObj.actor} to ${newObj.$set.actor}`)
+        }
+        else if (newObj.$set.rating){
+            console.log(`Successfully changed the rating of ${movieObj.title} to ${newObj.$set.rating}`)
+        }
+        else if (movieObj.title){
+            console.log(`Successfully changed ${movieObj.title} to ${newObj.$set.title}`)
+        }
         mongoose.disconnect()
     } catch (error) {
         console.log (error)
