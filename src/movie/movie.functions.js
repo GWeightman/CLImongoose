@@ -57,3 +57,18 @@ exports.editMovie = async (movieObj, newObj) => {
         mongoose.disconnect()
     }
 }
+
+exports.findMovie = async (movieObj) => {
+    try{
+        const list = []
+        const listmovie = await Movie.find(movieObj)
+        listmovie.forEach((element) => {
+            list.push({ Title: element.title, Actor: element.actor, Rating: element.rating })
+        })
+        console.table(list)
+        mongoose.disconnect()
+    } catch (error) {
+        console.log (error)
+        mongoose.disconnect()
+    }
+}
