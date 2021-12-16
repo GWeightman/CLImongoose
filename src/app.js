@@ -1,7 +1,7 @@
 require("./db/connections")
 const yargs = require("yargs")
 const mongoose = require("mongoose")
-const { addMovie, deleteMovie } = require("./movie/movie.functions")
+const { addMovie, deleteMovie, listMovie } = require("./movie/movie.functions")
 
 const app = async (args) => {
     try {
@@ -12,6 +12,9 @@ const app = async (args) => {
         else if (args.delete){
             const movieObj = {title: args.title}
             await deleteMovie(movieObj)
+        }
+        else if (args.movie){
+            await listMovie()
         }
         else{
             console.log("Incorrect command")

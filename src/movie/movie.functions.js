@@ -23,3 +23,16 @@ exports.deleteMovie = async (movieObj) => {
         mongoose.disconnect()
     }
 }
+
+exports.listMovie = async () => {
+    try{
+        const listmovie = await Movie.find()
+        listmovie.forEach((element) => {
+            console.log(`${element.title} ${element.actor} ${element.rating}`)
+        })
+        mongoose.disconnect()
+    } catch (error) {
+        console.log (error)
+        mongoose.disconnect()
+    }
+}
